@@ -1,0 +1,72 @@
+﻿@model IEnumerable<LaboratorioIV.Models.Libro>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Libros</h1>
+<p>
+    <a asp-action="Create">
+        <input type="button" class="btn btn-primary" value="Nuevo">
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resumen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDePublicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagenTapa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resumen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaDePublicacion)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.ImagenTapa)*@
+                    @if (!string.IsNullOrEmpty(@item.ImagenTapa))
+                    {
+                        <img src="~/images/libros/@item.ImagenTapa" class="img-thumbnail"
+                             style="max-height:50px; max-width:50px;" asp-append-version="true" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor.Nombres)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
